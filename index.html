@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffd84a">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Feliz cumpleaños, Yuselis.">
+  <title>Feliz cumpleaños, Yuselis</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffd84a'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia' font-size='18' fill='%231c1224'%3EY%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --paper: #ffd84a;
+      --ink: #1c1224;
+      --laser: #ff2940;
+      --mount: #fffdf8;
+      --mat: #ffe98a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Avenir Next", "Segoe UI", "Gill Sans", "Trebuchet MS", sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.45;
+    }
+
+    ::selection {
+      background: var(--laser);
+      color: #fffdf8;
+    }
+
+    .letter {
+      max-width: 30rem;
+      margin-inline: auto;
+      padding:
+        max(2.6rem, calc(env(safe-area-inset-top) + 1.6rem))
+        max(1.25rem, env(safe-area-inset-right))
+        max(3.5rem, calc(env(safe-area-inset-bottom) + 2.2rem))
+        max(1.25rem, env(safe-area-inset-left));
+    }
+
+    h1 {
+      margin: 0;
+      font-weight: 700;
+      font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    .greet {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .name {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: clamp(3.3rem, 16vw, 5rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+
+    .name::after {
+      content: "";
+      display: block;
+      width: 4.2rem;
+      height: 0.4rem;
+      margin-top: 0.7rem;
+      border-radius: 999px;
+      background: var(--laser);
+    }
+
+    .lead {
+      margin: 1.15rem 0 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.25;
+      font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    p { margin: 1rem 0 0; }
+
+    .plate {
+      position: relative;
+      aspect-ratio: 2 / 3;
+      margin: 1.4rem 0.15rem 0.2rem;
+      padding: 0.55rem;
+      background: var(--mount);
+      border: 2px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .shot { transform: rotate(-1.1deg); }
+
+    .plate img,
+    .plate figcaption {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      bottom: 0.55rem;
+      left: 0.55rem;
+    }
+
+    .plate img {
+      width: calc(100% - 1.1rem);
+      height: calc(100% - 1.1rem);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .plate figcaption {
+      display: grid;
+      place-items: center;
+      margin: 0;
+      background: var(--mat);
+      border: 2px dashed rgba(28, 18, 36, 0.55);
+      color: var(--ink);
+      font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .plate img[hidden],
+    .plate figcaption[hidden] { display: none; }
+
+    .close {
+      margin-top: 1.6rem;
+      font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    Fotos
+    -----
+    foto1.jpg ya está puesta.
+    La segunda: guarda el archivo junto a este, con el nombre foto2.jpg
+    (si es PNG, cambia el src a foto2.png).
+    Hasta que exista, el recuadro muestra "Foto 2".
+  -->
+  <article class="letter">
+    <h1>
+      <span class="greet">¡Feliz cumpleaños,</span>
+      <span class="name">Yuselis!</span>
+    </h1>
+    <p class="lead">Hoy las velas sobran. Tú llegas con los láseres puestos.</p>
+
+    <figure class="plate shot">
+      <img src="foto1.jpg" alt="Yuselis con rayos láser en los ojos" hidden onload="this.hidden = false; this.nextElementSibling.hidden = true" onerror="this.remove()">
+      <figcaption>Foto 1</figcaption>
+    </figure>
+
+    <p>Si alguien pregunta quién cumple, enseña esta foto. Se explica sola.</p>
+    <p>Y por si el láser no bastara, aquí va la otra.</p>
+
+    <figure class="plate">
+      <img src="foto2.jpg" alt="Foto 2" hidden onload="this.hidden = false; this.nextElementSibling.hidden = true" onerror="this.remove()">
+      <figcaption>Foto 2</figcaption>
+    </figure>
+
+    <p>Pide un deseo. El de dar un poco de miedo, del bueno, ya va cumplido.</p>
+    <p class="close">El otro también: te quiero.</p>
+  </article>
+</body>
+</html>
