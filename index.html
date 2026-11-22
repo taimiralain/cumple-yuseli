@@ -127,6 +127,140 @@
     .plate img[hidden],
     .plate figcaption[hidden] { display: none; }
 
+    [hidden] { display: none !important; }
+
+    .rite {
+      margin-top: 1.6rem;
+      padding: 1rem 1rem 1.15rem;
+      background: var(--mount);
+      border: 2px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      text-align: center;
+    }
+
+    .rite .lead { text-align: left; }
+
+    .stage {
+      position: relative;
+      height: 230px;
+      margin-top: 0.4rem;
+    }
+
+    .wax {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      width: 58px;
+      height: 108px;
+      margin-left: -29px;
+      background:
+        linear-gradient(#ffd0a8, #ffd0a8) 50% 0 / 16px 9px no-repeat,
+        linear-gradient(90deg, #f3e2cc, #fffaf3 45%, #e4cdb4);
+      border: 2px solid var(--ink);
+      border-radius: 3px 3px 10px 10px;
+    }
+
+    .wick {
+      position: absolute;
+      left: 50%;
+      bottom: 122px;
+      width: 3px;
+      height: 16px;
+      margin-left: -1.5px;
+      background: #2a211c;
+    }
+
+    .stage.out .wick { height: 11px; background: #7a6758; }
+
+    .flame {
+      position: absolute;
+      left: 50%;
+      bottom: 132px;
+      width: 28px;
+      height: 56px;
+      margin-left: -14px;
+      transform-origin: 50% 100%;
+      z-index: 2;
+    }
+
+    .flame span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50% 50% 42% 42%;
+      background: radial-gradient(circle at 50% 78%, #fffceb 0%, #ffe14a 30%, #ff8a00 58%, #ff2940 80%, transparent 82%);
+      filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.9));
+      transform-origin: 50% 100%;
+      animation: flicker 0.28s infinite alternate;
+    }
+
+    @keyframes flicker {
+      from { transform: scaleX(1) scaleY(1); }
+      to { transform: scaleX(0.84) scaleY(1.07) translateY(1px); }
+    }
+
+    .stage.out .flame { opacity: 0; transition: opacity 0.2s ease; }
+
+    .smoke {
+      position: absolute;
+      left: 50%;
+      bottom: 150px;
+      width: 0;
+      height: 0;
+    }
+
+    .smoke i {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      margin-left: -7px;
+      border-radius: 50%;
+      background: rgba(70, 60, 50, 0.35);
+      opacity: 0;
+    }
+
+    .stage.out .smoke i { animation: rise 1.5s ease-out forwards; }
+    .stage.out .smoke i:nth-child(2) { animation-delay: 0.15s; margin-left: 8px; }
+    .stage.out .smoke i:nth-child(3) { animation-delay: 0.3s; margin-left: -18px; }
+
+    @keyframes rise {
+      from { opacity: 0.45; transform: translateY(0) scale(0.6); }
+      to { opacity: 0; transform: translateY(-76px) scale(1.5); }
+    }
+
+    .rite button {
+      margin-top: 0.35rem;
+      padding: 0.75rem 1.25rem;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper);
+      font: inherit;
+      font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
+      font-weight: 700;
+      box-shadow: 4px 4px 0 var(--laser);
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+
+    .rite button:focus-visible {
+      outline: 3px solid var(--laser);
+      outline-offset: 3px;
+    }
+
+    .hint {
+      margin-top: 0.75rem;
+      font-size: 0.98rem;
+    }
+
+    .done {
+      margin-top: 0.8rem;
+      font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
     .close {
       margin-top: 1.6rem;
       font-family: "Arial Rounded MT Bold", "Avenir Next", "Segoe UI", sans-serif;
@@ -134,17 +268,14 @@
       font-weight: 700;
       line-height: 1.1;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flame span,
+      .stage.out .smoke i { animation: none; }
+    }
   </style>
 </head>
 <body>
-  <!--
-    Fotos
-    -----
-    foto1.jpg ya está puesta.
-    La segunda: guarda el archivo junto a este, con el nombre foto2.jpg
-    (si es PNG, cambia el src a foto2.png).
-    Hasta que exista, el recuadro muestra "Foto 2".
-  -->
   <article class="letter">
     <h1>
       <span class="greet">¡Feliz cumpleaños,</span>
@@ -158,15 +289,170 @@
     </figure>
 
     <p>Si alguien pregunta quién cumple, enseña esta foto. Se explica sola.</p>
-    <p>Y por si el láser no bastara, aquí va la otra.</p>
 
-    <figure class="plate">
-      <img src="foto2.jpg" alt="Foto 2" hidden onload="this.hidden = false; this.nextElementSibling.hidden = true" onerror="this.remove()">
-      <figcaption>Foto 2</figcaption>
-    </figure>
+    <section class="rite" aria-label="Vela de cumpleaños">
+      <p class="lead">Mentira. Queda una.</p>
+      <div class="stage" id="stage">
+        <div class="smoke" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="flame" id="flame"><span></span></div>
+        <div class="wick"></div>
+        <div class="wax"></div>
+      </div>
+      <button type="button" id="arm">Sopla la vela</button>
+      <p class="hint" id="hint">Toca el botón y sopla el micrófono, o agita el teléfono. La llama se inclina si lo tumbas. No se graba nada.</p>
+      <p class="done" id="done" hidden role="status">Deseo pedido. El láser, ese sigue encendido.</p>
+    </section>
 
-    <p>Pide un deseo. El de dar un poco de miedo, del bueno, ya va cumplido.</p>
-    <p class="close">El otro también: te quiero.</p>
+    <p class="close">Te quiero.</p>
   </article>
+  <script>
+    (function () {
+      var stage = document.getElementById("stage");
+      var flame = document.getElementById("flame");
+      var arm = document.getElementById("arm");
+      var hint = document.getElementById("hint");
+      var done = document.getElementById("done");
+      var out = false;
+      var armed = false;
+      var listenShake = false;
+      var gamma = 0;
+      var wind = 0;
+      var stream, audio, raf, lastMag;
+
+      function paint() {
+        if (out) return;
+        flame.style.transform =
+          "translateX(" + (gamma * 0.45 - wind * 26) + "px) rotate(" +
+          (gamma * 0.6 - wind * 20) + "deg) scale(" +
+          (1 + wind * 0.2) + "," + (1 - wind * 0.28) + ")";
+      }
+
+      function blowOut() {
+        if (out) return;
+        out = true;
+        stage.classList.add("out");
+        flame.style.transform = "translateX(-10px) rotate(-28deg) scale(1.1, 0.4)";
+        done.hidden = false;
+        arm.hidden = true;
+        hint.hidden = true;
+        if (raf) cancelAnimationFrame(raf);
+        if (stream) stream.getTracks().forEach(function (t) { t.stop(); });
+        if (audio && audio.state !== "closed") audio.close();
+      }
+
+      function onOrient(e) {
+        gamma = Math.max(-35, Math.min(35, e.gamma || 0));
+        paint();
+      }
+
+      function onMotion(e) {
+        if (!listenShake || out) return;
+        var a = e.acceleration;
+        var withGravity = false;
+        if (!a || a.x == null) {
+          a = e.accelerationIncludingGravity;
+          withGravity = true;
+        }
+        if (!a || a.x == null) return;
+        var mag = Math.hypot(a.x, a.y, a.z);
+        if (!withGravity) {
+          if (mag > 17) blowOut();
+          return;
+        }
+        if (lastMag == null) { lastMag = mag; return; }
+        if (Math.abs(mag - lastMag) > 9) blowOut();
+        lastMag = mag;
+      }
+
+      function watchBlow() {
+        var analyser = audio.createAnalyser();
+        analyser.fftSize = 1024;
+        audio.createMediaStreamSource(stream).connect(analyser);
+        var time = new Uint8Array(analyser.fftSize);
+        var freq = new Uint8Array(analyser.frequencyBinCount);
+        var noise = 0;
+        var seen = 0;
+        var hot = 0;
+
+        function tick() {
+          if (out) return;
+          analyser.getByteTimeDomainData(time);
+          var sum = 0;
+          for (var i = 0; i < time.length; i++) {
+            var v = (time[i] - 128) / 128;
+            sum += v * v;
+          }
+          var rms = Math.sqrt(sum / time.length);
+          if (seen < 24) {
+            noise += rms;
+            seen++;
+            if (seen === 24) noise /= 24;
+          }
+          analyser.getByteFrequencyData(freq);
+          var low = 0;
+          for (var j = 0; j < 8; j++) low += freq[j];
+          low /= 8;
+          wind = Math.max(0, Math.min(1, (rms - noise) * 7));
+          paint();
+          // ponytail: one threshold for a phone mic nearby. Raise it if speech keeps putting the flame out.
+          var loud = rms > 0.2 || (rms > Math.max(0.08, noise * 3.4) && low > 30);
+          hot = loud ? hot + 1 : 0;
+          if (hot > 8) blowOut();
+          else raf = requestAnimationFrame(tick);
+        }
+        raf = requestAnimationFrame(tick);
+      }
+
+      function allowTap() {
+        hint.textContent = "Sin micrófono. Agita el teléfono, o toca la vela.";
+        stage.addEventListener("click", blowOut);
+      }
+
+      arm.addEventListener("click", function () {
+        if (armed || out) return;
+        armed = true;
+        arm.textContent = "Sopla ahora";
+        hint.textContent = "Sopla hacia el micrófono, o agita el teléfono.";
+
+        var orientP, motionP, micP;
+        try {
+          if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === "function") {
+            orientP = DeviceOrientationEvent.requestPermission();
+          }
+        } catch (e) {}
+        try {
+          if (window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function") {
+            motionP = DeviceMotionEvent.requestPermission();
+          }
+        } catch (e) {}
+        try {
+          micP = navigator.mediaDevices.getUserMedia({
+            audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+            video: false
+          });
+        } catch (e) {}
+
+        setTimeout(function () { listenShake = true; }, 600);
+
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) {
+          audio = new AC();
+          audio.resume();
+        }
+
+        Promise.resolve(micP).then(function (s) {
+          if (!s || !audio) throw new Error("no mic");
+          stream = s;
+          watchBlow();
+        }).catch(allowTap);
+
+        Promise.resolve(orientP).catch(function () {});
+        Promise.resolve(motionP).catch(function () {});
+      });
+
+      window.addEventListener("deviceorientation", onOrient);
+      window.addEventListener("devicemotion", onMotion);
+    })();
+  </script>
 </body>
 </html>
